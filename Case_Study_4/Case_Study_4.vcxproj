@@ -127,9 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataTypes.cpp" />
+    <ClCompile Include="Function.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataTypes.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Tree_AVL.h" />
