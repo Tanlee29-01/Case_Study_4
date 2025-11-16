@@ -149,7 +149,7 @@ private:
         }
         else {
             // Trùng lặp khóa
-            node->right = insert(node->right,pclass)
+            node->right = insert(node->right, pClass);
         }
 
         // 2. Cập nhật chiều cao
