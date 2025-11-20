@@ -9,7 +9,7 @@ private:
 
 	void Hienthitieude();
 	void Hienthilogo();
-	int Menu();
+	int HienMenu();
 
 public:
 	Menu(Function& function);
