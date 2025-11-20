@@ -1,10 +1,15 @@
-// Main.cpp (Dùng để test Menu)
+#include <iostream>
 #include "Function.h"
 #include "Menu.h"
 
 int main() {
-    Function app;    // 1. Tạo app
-    Menu menu(app);  // 2. Gắn app vào menu
-    menu.ChayChuongTrinh(); // 3. Chạy
+    //khởi tạo dữ liệu
+    Function app;
+
+    //khởi tạo menu và đưa dữ liệu vào
+    Menu menu(app);
+
+    //gọi hàm
+    menu.ChayMenu();
     return 0;
 }

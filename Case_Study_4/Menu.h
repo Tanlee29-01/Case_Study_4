@@ -1,18 +1,18 @@
 #pragma once
-#include "Fucntion.h"
+#include "Function.h"
 
 class Menu
 {
 
 private:
-	Fucntion& BoXL;
+	Function& BoXL;
 
 	void Hienthitieude();
 	void Hienthilogo();
 	int Menu();
 
 public:
-	Menu(Fucntion& fucntion);
+	Menu(Function& function);
 	~Menu();
 
 	void ChayMenu();
