@@ -78,6 +78,7 @@ void Menu::ChayMenu() {
             break;
         case 3:
             BoXL.Update_Class();
+            break;
         case 4:
             BoXL.Search_By_ID();
             break;
