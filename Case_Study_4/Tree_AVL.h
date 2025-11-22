@@ -1,11 +1,9 @@
 ﻿#pragma once
 
-// 1. BAO GỒM file DataTypes của bạn
 #include "DataTypes.h" 
-
-// 2. BAO GỒM các thư viện cần thiết
-#include <algorithm> // Dùng cho std::max
-#include <iostream>  // Dùng để in ra (trong hàm printInOrder)
+#include <algorithm>
+#include <iostream>
+#include <string>
 
 /**
  * @brief Cấu trúc Node cho cây AVL.
@@ -22,42 +20,28 @@ struct Node {
     Node(Class* pClass) : data(pClass), left(nullptr), right(nullptr), height(1) {}
 };
 
+// KHAI BÁO VÀ CÀI ĐẶT LỚP CÂY AVL (TEMPLATE)
 // ===================================================================
 // CÁC BỘ SO SÁNH (FUNCTORS) - ĐÃ ĐIỀU CHỈNH
-// [MENTOR'S NOTE]: Đây là phần "ma thuật". Nó cho phép 1 code AVLTree
-// có thể sắp xếp theo 3 cách khác nhau.
 // ===================================================================
 
-/**
- * @brief Bộ so sánh theo MÃ MÔN HỌC (Sub_id)
- */
 struct CompareByMaMon {
-    // 1. So sánh 2 đối tượng Class* (dùng khi chèn, xóa, cân bằng)
     bool operator()(const Class* a, const Class* b) const {
-        // Dùng 'Sub_id' từ class Class của bạn
         return a->Sub_id < b->Sub_id;
     }
 
-    // 2. So sánh 1 key (string) với 1 đối tượng Class* (dùng khi tìm kiếm)
-    // Trả về: -1 (key < data), 0 (key == data), 1 (key > data)
     int compareKey(const std::string& key, const Class* data) const {
         if (key < data->Sub_id) return -1;
         if (key > data->Sub_id) return 1;
-        return 0; // Bằng nhau
+        return 0;
     }
 };
 
-/**
- * @brief Bộ so sánh theo TÊN MÔN HỌC (Sub_name)
- */
 struct CompareByTenMon {
-    // 1. So sánh 2 đối tượng Class*
     bool operator()(const Class* a, const Class* b) const {
-        // Dùng 'Sub_name' từ class Class của bạn
         return a->Sub_name < b->Sub_name;
     }
 
-    // 2. So sánh 1 key (string) với 1 đối tượng Class*
     int compareKey(const std::string& key, const Class* data) const {
         if (key < data->Sub_name) return -1;
         if (key > data->Sub_name) return 1;
@@ -65,28 +49,18 @@ struct CompareByTenMon {
     }
 };
 
-/**
- * @brief Bộ so sánh theo THỜI GIAN BẮT ĐẦU (Start_Time)
- */
 struct CompareByThoiGian {
-    // 1. So sánh 2 đối tượng Class*
     bool operator()(const Class* a, const Class* b) const {
-        // Dùng 'Start_Time' từ class Class của bạn
-        // Nó sẽ tự động gọi hàm 'Time::operator<' mà bạn đã viết
         return a->Start_Time < b->Start_Time;
     }
 
-    // 2. So sánh 1 key (Time) với 1 đối tượng Class*
     int compareKey(const Time& key, const Class* data) const {
-        // Dùng 'Start_Time' và các toán tử <, > (hoặc ==) của class Time
         if (key < data->Start_Time) return -1;
-        if (key > data->Start_Time) return 1; // Có thể không cần cũng đc
+        if (key > data->Start_Time) return 1;
         return 0;
     }
 };
 
-// ===================================================================
-// KHAI BÁO VÀ CÀI ĐẶT LỚP CÂY AVL (TEMPLATE)
 // ===================================================================
 template <typename Compare>
 class AVLTree {

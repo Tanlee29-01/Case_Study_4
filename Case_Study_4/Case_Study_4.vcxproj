@@ -131,12 +131,14 @@
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Tree_Bst.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Tree_AVL.h" />
+    <ClInclude Include="Tree_Bst.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
