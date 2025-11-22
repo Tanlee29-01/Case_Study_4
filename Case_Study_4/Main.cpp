@@ -1,8 +1,15 @@
 #include <iostream>
+#include "Function.h"
+#include "Menu.h"
 
-using namespace std;
+int main() {
+    //khởi tạo dữ liệu
+    Function app;
 
-int main()
-{
+    //khởi tạo menu và đưa dữ liệu vào
+    Menu menu(app);
 
+    //gọi hàm
+    menu.ChayMenu();
+    return 0;
 }
