@@ -1,17 +1,15 @@
 #include <iostream>
 #include "Menu.h"
-#include <limits> //hàm hỗ trợ xử lý lỗi nhâp liệu
+#include <limits> 
 
 using namespace std;
 
 Menu::Menu(Function& function) : BoXL(function)
 {
-    //Gán biến function truyền vào cho biến thành viên BoXL
 }
 
 Menu::~Menu()
 {
-    //kh cần xóa BoXL vì Menu chỉ mượn dùng, kh sở hữu nó
 }
 
 //hàm hiển thị tiêu đề
@@ -35,9 +33,9 @@ int Menu::HienMenu() {
 
     //xử lý lỗi nhập liệu
     if (cin.fail()) {
-        cin.clear(); //xóa cờ lỗi
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); //xóa bộ đệm nhập
-        return -1; //trả về giá trị lỗi
+        cin.clear(); 
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+        return -1; 
     }
 
     //xóa bộ đệm tránh trôi getline sau này
@@ -105,7 +103,6 @@ void Menu::ChayMenu() {
             break;
         }
 
-        //Dừng màn hình để người dùng kịp xem kết quả trước khi in menu
         if (choice != 0) {
             cout << "\n (Nhan Enter de quay lai Menu chinh)";
             cin.get();

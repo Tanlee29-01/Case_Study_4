@@ -1,36 +1,24 @@
 ﻿#pragma once
-
 #include "DataTypes.h" 
 #include <algorithm>
 #include <iostream>
 #include <string>
-
-/**
- * @brief Cấu trúc Node cho cây AVL.
- * [MENTOR'S NOTE]: Nó sẽ lưu một con trỏ 'Class*' trỏ đến
- * đối tượng Class mà bạn tạo.
- */
+using namespace std;
 struct Node {
-    Class* data; // <-- Dùng 'Class*' theo định nghĩa của bạn
+    Class* data; 
     Node* left;
     Node* right;
-    int height;    // Chiều cao của node này (cần cho cân bằng)
+    int height;    
 
-    // Hàm khởi tạo Node
     Node(Class* pClass) : data(pClass), left(nullptr), right(nullptr), height(1) {}
 };
-
-// KHAI BÁO VÀ CÀI ĐẶT LỚP CÂY AVL (TEMPLATE)
-// ===================================================================
-// CÁC BỘ SO SÁNH (FUNCTORS) - ĐÃ ĐIỀU CHỈNH
-// ===================================================================
 
 struct CompareByMaMon {
     bool operator()(const Class* a, const Class* b) const {
         return a->Sub_id < b->Sub_id;
     }
 
-    int compareKey(const std::string& key, const Class* data) const {
+    int compareKey(const string& key, const Class* data) const {
         if (key < data->Sub_id) return -1;
         if (key > data->Sub_id) return 1;
         return 0;
@@ -42,7 +30,7 @@ struct CompareByTenMon {
         return a->Sub_name < b->Sub_name;
     }
 
-    int compareKey(const std::string& key, const Class* data) const {
+    int compareKey(const string& key, const Class* data) const {
         if (key < data->Sub_name) return -1;
         if (key > data->Sub_name) return 1;
         return 0;
@@ -61,16 +49,11 @@ struct CompareByThoiGian {
     }
 };
 
-// ===================================================================
 template <typename Compare>
 class AVLTree {
 private:
-    Node* root;      // Node gốc của cây
-    Compare comp;    // Biến comp để gọi các hàm so sánh (ví dụ: comp(a, b))
-
-    // --- CÁC HÀM TRỢ GIÚP (PRIVATE) ---
-
-    // Lấy chiều cao (an toàn khi gọi với nullptr)
+    Node* root;      
+    Compare comp;    
     int getHeight(Node* N) {
         if (N == nullptr) return 0;
         return N->height;
@@ -88,8 +71,8 @@ private:
         Node* T2 = x->right;
         x->right = y;
         y->left = T2;
-        y->height = std::max(getHeight(y->left), getHeight(y->right)) + 1;
-        x->height = std::max(getHeight(x->left), getHeight(x->right)) + 1;
+        y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+        x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
         return x;
     }
 
@@ -99,15 +82,12 @@ private:
         Node* T2 = y->left;
         y->left = x;
         x->right = T2;
-        x->height = std::max(getHeight(x->left), getHeight(x->right)) + 1;
-        y->height = std::max(getHeight(y->left), getHeight(y->right)) + 1;
+        x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
+        y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
         return y;
     }
 
-    /**
-     * @brief Hàm chèn (Insert) đệ quy.
-     * [MENTOR'S NOTE]: Tham số là 'Class*' theo class của bạn.
-     */
+
     Node* insert(Node* node, Class* pClass) {
         // 1. Chèn BST thông thường
         if (node == nullptr) {
@@ -115,10 +95,12 @@ private:
         }
 
         // Dùng `comp` (bộ so sánh) để quyết định đi trái hay phải
-        if (comp(pClass, node->data)) { // pClass < node->data
+        if (comp(pClass, node->data)) { 
+            // pClass < node->data
             node->left = insert(node->left, pClass);
         }
-        else if (comp(node->data, pClass)) { // node->data < pClass
+        else if (comp(node->data, pClass)) { 
+            // node->data < pClass
             node->right = insert(node->right, pClass);
         }
         else {
@@ -127,7 +109,7 @@ private:
         }
 
         // 2. Cập nhật chiều cao
-        node->height = 1 + std::max(getHeight(node->left), getHeight(node->right));
+        node->height = 1 + max(getHeight(node->left), getHeight(node->right));
 
         // 3. Cân bằng cây
         int balance = getBalance(node);
@@ -164,10 +146,7 @@ private:
         return current;
     }
 
-    /**
-     * @brief Hàm xóa (Delete) đệ quy.
-     * [MENTOR'S NOTE]: Tham số là 'Class*' theo class của bạn.
-     */
+
     Node* deleteNode(Node* root, Class* pClass) {
         // 1. Xóa BST thông thường
         if (root == nullptr) return root;
@@ -189,12 +168,9 @@ private:
                 else {
                     *root = *temp;
                 }
-                // [MENTOR'S NOTE]: Chỉ xóa 'Node', KHÔNG xóa 'data' (pClass)
-                // vì 'data' sẽ được quản lý bởi lớp Function
                 delete temp;
             }
             else {
-                // Node có 2 con
                 Node* temp = minValueNode(root->right);
                 root->data = temp->data;
                 root->right = deleteNode(root->right, temp->data);
@@ -204,7 +180,7 @@ private:
         if (root == nullptr) return root;
 
         // 2. Cập nhật chiều cao
-        root->height = 1 + std::max(getHeight(root->left), getHeight(root->right));
+        root->height = 1 + max(getHeight(root->left), getHeight(root->right));
 
         // 3. Cân bằng lại cây
         int balance = getBalance(root);
@@ -223,82 +199,65 @@ private:
         return root;
     }
 
-    /**
-     * @brief Hàm tìm kiếm (Search) đệ quy
-     * Dùng hàm 'compareKey' của bộ so sánh.
-     */
     template <typename KeyType>
     Class* search(Node* root, const KeyType& key) {
         if (root == nullptr) {
-            return nullptr; // Không tìm thấy
+            return nullptr; 
         }
 
-        // Dùng `comp.compareKey` để so sánh (trả về -1, 0, 1)
         int cmpResult = comp.compareKey(key, root->data);
 
-        if (cmpResult < 0) { // key < root->data
+        if (cmpResult < 0) { 
             return search(root->left, key);
         }
-        else if (cmpResult > 0) { // key > root->data
+        else if (cmpResult > 0) { 
             return search(root->right, key);
         }
         else {
-            return root->data; // Đã tìm thấy! Trả về con trỏ Class*
+            return root->data; 
         }
     }
 
-    /**
-     * @brief Duyệt cây theo thứ tự (In-order)
-     * Sẽ in ra danh sách đã được sắp xếp.
-     */
+    
     void inOrder(Node* root) {
         if (root != nullptr) {
             inOrder(root->left);
-            // [MENTOR'S NOTE]: Gọi hàm 'show_infor' của bạn
             root->data->show_infor();
             std::cout << "--------------------" << std::endl;
             inOrder(root->right);
         }
     }
 
-    // Hàm dọn dẹp bộ nhớ (dùng cho hàm hủy)
     void destroyTree(Node* node) {
         if (node != nullptr) {
             destroyTree(node->left);
             destroyTree(node->right);
-            // [MENTOR'S NOTE]: Chỉ xóa 'Node', không xóa 'node->data'
             delete node;
         }
     }
 
 public:
-    // --- CÁC HÀM CÔNG KHAI (PUBLIC API) ---
-
     AVLTree() : root(nullptr) {}
 
     ~AVLTree() {
         destroyTree(root);
     }
 
-    // Hàm chèn (wrapper)
     void insert(Class* pClass) {
         if (pClass == nullptr) return;
         root = insert(root, pClass);
     }
 
-    // Hàm xóa (wrapper)
     void remove(Class* pClass) {
         if (pClass == nullptr) return;
         root = deleteNode(root, pClass);
     }
 
-    // Hàm tìm kiếm (wrapper)
     template <typename KeyType>
     Class* searchByKey(const KeyType& key) {
         return search(root, key);
     }
 
-    // Hàm in ra danh sách đã sắp xếp
     void printInOrder() {
         if (root == nullptr) {
             std::cout << "  (Danh sach rong)" << std::endl;

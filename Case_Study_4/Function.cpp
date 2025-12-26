@@ -1,5 +1,5 @@
 ﻿#include "Function.h"
-#include "Tree_Bst.h" // <--- QUAN TRONG: Them file nay de so sanh
+#include "Tree_Bst.h"
 #include <iostream>
 #include <string>
 #include <limits>     
@@ -7,14 +7,11 @@
 #include <chrono>     
 #include <sstream>    
 #include <iomanip>    
-#include <random>     // <--- Them thu vien Random
-
+#include <random>    
 using namespace std;
-using namespace std::chrono; // De do thoi gian
+using namespace std::chrono; 
 
-/**
- * @brief Hàm trợ giúp để xóa bộ đệm cin
- */
+
 void clearCinBuffer() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
@@ -67,7 +64,7 @@ Function::~Function() {
 }
 
 // ===============================================
-// HÀM TRỢ GIÚP (PRIVATE)
+//             HÀM TRỢ GIÚP (PRIVATE)
 // ===============================================
 
 Time Function::Input_Time() {
@@ -96,7 +93,7 @@ Class* Function::Pointer_Search_with_ID(const string& Sub_ID) {
 
 
 // ===============================================
-// CÁC CHỨC NĂNG CHÍNH (PUBLIC)
+//              CÁC CHỨC NĂNG CHÍNH 
 // ===============================================
 
 // 1. Thêm Lớp
@@ -237,7 +234,6 @@ void Function::Update_Class() {
     cout << "\n==> Da cap nhat thanh cong!" << endl;
 }
 
-// 4, 5, 6, 7, 8: Các hàm tìm kiếm và hiển thị (Giữ nguyên logic cũ)
 void Function::Search_By_ID() {
     string maMon;
     cout << "\n--- 4. Tim Kiem theo Ma Mon Hoc ---" << endl;
@@ -274,7 +270,7 @@ void Function::Show_Time() {
 }
 
 // ===============================================
-// 9. TEST HIỆU NĂNG (HOÀN THIỆN)
+//      9. TEST HIỆU NĂNG (HOÀN THIỆN)
 // ===============================================
 void Function::Test_Performance() {
     cout << "\n================================================" << endl;

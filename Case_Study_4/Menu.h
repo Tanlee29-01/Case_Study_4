@@ -13,6 +13,5 @@ private:
 public:
 	Menu(Function& function);
 	~Menu();
-
 	void ChayMenu();
 };
